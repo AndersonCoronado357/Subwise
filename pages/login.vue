@@ -98,8 +98,8 @@ async function enviar() {
       <p class="login-hsub">{{ c.sub }}</p>
       <div class="login-hero-meta">
         <span class="row" style="gap: 8px">
-          <span style="color: var(--leaf); display: flex">
-            <SwSprig :size="20" />
+          <span style="color: var(--accent); display: flex">
+            <SwOwl :size="20" />
           </span>
           <span class="faint" style="font-size: .86rem">
             Hecho para llevar la cuenta sin estrés

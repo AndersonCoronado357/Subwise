@@ -29,10 +29,6 @@ const conLeaves = computed(() => props.leaves && props.variant === 'primary')
       block ? 'btn-block' : '',
     ]"
   >
-    <template v-if="conLeaves">
-      <SwLeaf :size="13" class="leaf-deco l1" />
-      <SwLeaf :size="11" class="leaf-deco l2" />
-    </template>
     <slot />
   </button>
 </template>

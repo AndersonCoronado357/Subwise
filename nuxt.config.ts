@@ -31,6 +31,10 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Tus suscripciones, bajo control.' },
         { name: 'theme-color', content: '#FFFBEB' },
       ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/owl.svg' },
+        { rel: 'apple-touch-icon', href: '/owl.svg' },
+      ],
       script: [
         {
           // Fija el tema guardado antes del primer pintado para evitar el flash
@@ -72,7 +76,10 @@ export default defineNuxtConfig({
       background_color: '#FFFBEB',
       display: 'standalone',
       start_url: '/',
-      icons: [],
+      icons: [
+        { src: '/owl.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
+        { src: '/owl.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'maskable' },
+      ],
     },
     // Permite registrar y probar el SW en `nuxt dev`.
     devOptions: { enabled: true, type: 'module', suppressWarnings: true },

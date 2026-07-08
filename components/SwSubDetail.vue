@@ -26,7 +26,7 @@ const conversion = computed(() => props.sub && props.sub.currency !== props.cur)
 
 <template>
   <div v-if="!sub" class="detail-empty">
-    <SwSprig :size="40" style="color: var(--text3)" />
+    <SwOwl :size="40" style="color: var(--text3)" />
     <span class="muted">Elige una suscripción para ver el detalle</span>
   </div>
 

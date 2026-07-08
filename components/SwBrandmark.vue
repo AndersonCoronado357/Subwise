@@ -7,7 +7,7 @@ const fontSize = computed(() => `${props.size * 0.95}px`)
 <template>
   <span class="row" style="gap: 9px; align-items: center;">
     <span style="color: var(--accent); display: flex">
-      <SwLeaf :size="size" />
+      <SwOwl :size="size" />
     </span>
     <span
       class="sw-title"

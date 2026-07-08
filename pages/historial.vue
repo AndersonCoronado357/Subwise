@@ -73,7 +73,7 @@ function abrir(id: string) { router.push(`/suscripciones?id=${id}`) }
         </template>
 
         <div v-if="canceled.length === 0" class="empty">
-          <SwSprig :size="34" style="color: var(--text3)" />
+          <SwOwl :size="34" style="color: var(--text3)" />
           <span class="muted">No has cancelado nada todavía</span>
         </div>
       </div>

@@ -22,9 +22,12 @@
   }
   .app-shell > .sidebar { display: flex; min-height: 0; }
   .app-shell > .tabbar  { display: none; }
+  /* En PC categorías/métodos viven en el sidebar, no en Ajustes. */
+  .only-mobile { display: none !important; }
 }
 
 .app-main {
+  flex: 1;                /* móvil: llena el alto entre el tope y la tabbar */
   min-width: 0;
   min-height: 0;
   display: flex;

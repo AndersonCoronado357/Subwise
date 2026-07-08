@@ -143,7 +143,7 @@ const lista = computed(() => {
       </button>
 
       <div v-if="lista.length === 0" class="empty">
-        <SwSprig :size="34" style="color: var(--text3)" />
+        <SwOwl :size="34" style="color: var(--text3)" />
         <span class="muted">Sin resultados</span>
       </div>
     </div>
