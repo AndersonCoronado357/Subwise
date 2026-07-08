@@ -122,10 +122,11 @@ const conversion = computed(() => props.sub && props.sub.currency !== props.cur)
         </div>
       </div>
 
-      <!-- Notas -->
-      <div v-if="sub.notes" class="card dash-panel">
+      <!-- Notas (siempre presente para no mover el layout) -->
+      <div class="card dash-panel">
         <span class="panel-title" style="margin-bottom: 8px; display: block">Notas</span>
-        <p class="muted" style="margin: 0; font-size: .92rem; line-height: 1.55">{{ sub.notes }}</p>
+        <p v-if="sub.notes" class="muted" style="margin: 0; font-size: .92rem; line-height: 1.55">{{ sub.notes }}</p>
+        <p v-else class="faint" style="margin: 0; font-size: .9rem; line-height: 1.55">Sin notas.</p>
       </div>
     </div>
 

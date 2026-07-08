@@ -131,12 +131,25 @@ export function upcoming(list: Suscripcion[], limit?: number): Suscripcion[] {
   return limit ? u.slice(0, limit) : u
 }
 
-export const YEAR_SPEND = [
-  { m: 'jul', v: 392000 }, { m: 'ago', v: 392000 }, { m: 'sep', v: 411000 },
-  { m: 'oct', v: 411000 }, { m: 'nov', v: 438000 }, { m: 'dic', v: 438000 },
-  { m: 'ene', v: 446000 }, { m: 'feb', v: 446000 }, { m: 'mar', v: 419000 },
-  { m: 'abr', v: 392000 }, { m: 'may', v: 401000 }, { m: 'jun', v: 421000 },
-]
+// Gasto real de los últimos 12 meses: en cada mes suma el costo mensual de las
+// suscripciones que ya existían ese mes (según su fecha de alta) y que no estaban
+// canceladas antes de ese mes. Sin datos inventados.
+export function monthlySpend(list: Suscripcion[], displayCode: string): { m: string; v: number }[] {
+  const out: { m: string; v: number }[] = []
+  for (let i = 11; i >= 0; i--) {
+    const first = new Date(TODAY.getFullYear(), TODAY.getMonth() - i, 1)
+    const last = new Date(first.getFullYear(), first.getMonth() + 1, 0)
+    let v = 0
+    for (const s of list) {
+      const started = s.started ? new Date(s.started) : null
+      if (started && startOfDay(started) > last) continue // aún no existía
+      if (s.status === 'cancelada' && s.canceled && startOfDay(new Date(s.canceled)) < first) continue
+      v += monthlyIn(s, displayCode)
+    }
+    out.push({ m: MESES_COR[first.getMonth()]!, v })
+  }
+  return out
+}
 
 // ── Hidratación / serialización ──────────────────────────────────
 function hydrateSub(a: any): Suscripcion {

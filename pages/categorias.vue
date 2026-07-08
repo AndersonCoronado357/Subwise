@@ -27,7 +27,7 @@ const conteoPorCat = computed(() => {
 </script>
 
 <template>
-  <div class="screen">
+  <div class="screen fill">
     <div class="page-head">
       <div class="col grow" style="gap: 2px; min-width: 0">
         <span class="faint" style="font-size: .82rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase">
@@ -37,10 +37,24 @@ const conteoPorCat = computed(() => {
       </div>
     </div>
 
-    <div class="settings-col">
-      <div class="card settings-card">
-        <span class="panel-title" style="display: block; margin-bottom: 14px">Tus categorías</span>
-        <div class="method-list">
+    <div class="fill-col">
+      <div class="card manage-card">
+        <div class="manage-head">
+          <span class="panel-title">Tus categorías</span>
+          <div class="method-add">
+            <SwField
+              v-model="nuevaCat"
+              icon="tag"
+              placeholder="Nueva categoría (Mascotas, Hogar…)"
+              @enter="agregarCat"
+            />
+            <SwButton variant="ghost" :leaves="false" :disabled="!nuevaCat.trim()" @click="agregarCat">
+              <SwIcon name="plus" :size="17" />Añadir
+            </SwButton>
+          </div>
+        </div>
+
+        <div class="method-list manage-list">
           <div v-for="c in categorias" :key="c.id" class="method-row">
             <span class="row" style="gap: 11px; min-width: 0">
               <SwIcon name="tag" :size="18" style="color: var(--text3)" />
@@ -57,24 +71,10 @@ const conteoPorCat = computed(() => {
               @click="quitarCat(c.id)"
             />
           </div>
-          <span v-if="categorias.length === 0" class="faint" style="font-size: .88rem; padding: 4px 0">
-            Aún no tienes categorías. Crea la primera abajo.
+          <span v-if="categorias.length === 0" class="faint" style="font-size: .88rem; padding: 8px 2px">
+            Aún no tienes categorías. Crea la primera arriba.
           </span>
         </div>
-        <div class="method-add">
-          <SwField
-            v-model="nuevaCat"
-            icon="tag"
-            placeholder="Nueva categoría (Mascotas, Hogar…)"
-            @enter="agregarCat"
-          />
-          <SwButton variant="ghost" :leaves="false" :disabled="!nuevaCat.trim()" @click="agregarCat">
-            <SwIcon name="plus" :size="17" />Añadir
-          </SwButton>
-        </div>
-        <p class="faint" style="font-size: .8rem; margin: 14px 0 0; line-height: 1.5">
-          No puedes quitar una categoría que esté en uso por alguna suscripción.
-        </p>
       </div>
     </div>
   </div>

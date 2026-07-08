@@ -69,6 +69,12 @@ const valid = computed(() =>
   !!form.nextCharge,
 )
 
+// Monto: se escribe solo con dígitos y se muestra con puntos de miles (es-CO).
+const amountDisplay = computed({
+  get: () => (form.amount ? Number(form.amount).toLocaleString('es-CO') : ''),
+  set: (v: string | number) => { form.amount = String(v).replace(/\D/g, '') },
+})
+
 function submit(e: Event) {
   e.preventDefault()
   if (!valid.value) return
@@ -122,10 +128,10 @@ const methodOpts = computed(() => props.methods.map(m => ({ value: m, label: m }
 
       <div class="form-row-2">
         <SwField
-          v-model="form.amount"
+          v-model="amountDisplay"
           label="Monto"
-          type="number"
-          inputmode="decimal"
+          type="text"
+          inputmode="numeric"
           placeholder="0"
         />
         <SwSelect v-model="form.cycle" label="Ciclo" :options="cicloOpts" />

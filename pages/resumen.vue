@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   totals, byCategory, activeSubs, monthlyIn,
-  formatMoney, YEAR_SPEND,
+  formatMoney, monthlySpend,
 } from '~/composables/useDatos'
 
 useHead({ title: 'Resumen · Subwise' })
@@ -11,17 +11,19 @@ const { suscripciones, moneda } = useDatos()
 const t   = computed(() => totals(suscripciones.value, moneda.value))
 const cats = computed(() => byCategory(suscripciones.value, moneda.value))
 const act = computed(() => activeSubs(suscripciones.value))
+const serie = computed(() => monthlySpend(suscripciones.value, moneda.value))
 const priciest = computed(() =>
   [...act.value].sort((a, b) => monthlyIn(b, moneda.value) - monthlyIn(a, moneda.value))[0],
 )
 const avg = computed(() => act.value.length ? t.value.monthly / act.value.length : 0)
-const max = computed(() => Math.max(...YEAR_SPEND.map(d => d.v)))
-const min = computed(() => Math.min(...YEAR_SPEND.map(d => d.v)))
+const max = computed(() => Math.max(...serie.value.map(d => d.v), 0))
+const min = computed(() => Math.min(...serie.value.map(d => d.v)))
 const mixed = computed(() => new Set(act.value.map(s => s.currency)).size > 1)
 
+// Altura proporcional al máximo real; los meses en cero quedan casi planos.
 function alturaBarra(v: number): string {
-  const denom = (max.value - min.value) || 1
-  return `${18 + ((v - min.value) / denom) * 82}%`
+  if (!max.value) return '2%'
+  return `${2 + (v / max.value) * 96}%`
 }
 </script>
 
@@ -74,7 +76,7 @@ function alturaBarra(v: number): string {
           </div>
           <div class="chart">
             <div
-              v-for="(d, i) in YEAR_SPEND"
+              v-for="(d, i) in serie"
               :key="i"
               class="chart-col"
               :title="formatMoney(d.v, moneda)"
@@ -83,7 +85,7 @@ function alturaBarra(v: number): string {
                 class="chart-bar"
                 :style="{
                   height: alturaBarra(d.v),
-                  opacity: i === YEAR_SPEND.length - 1 ? 1 : 0.55,
+                  opacity: i === serie.length - 1 ? 1 : 0.55,
                 }"
               />
               <span class="chart-x">{{ d.m }}</span>

@@ -210,32 +210,6 @@ const avisoOpts = [
         </div>
       </div>
 
-      <!-- Atajos a categorías y métodos de pago -->
-      <NuxtLink to="/categorias" class="card settings-card" style="text-decoration: none; color: inherit; cursor: pointer">
-        <div class="row" style="gap: 14px; align-items: center">
-          <span class="trial-ic" style="background: var(--s2); color: var(--text2)">
-            <SwIcon name="tag" :size="20" />
-          </span>
-          <div class="col grow" style="gap: 3px; min-width: 0">
-            <span style="font-weight: 600">Categorías</span>
-            <span class="faint" style="font-size: .86rem">Organiza tus suscripciones</span>
-          </div>
-          <SwIcon name="chevronRight" :size="18" style="color: var(--text3)" />
-        </div>
-      </NuxtLink>
-      <NuxtLink to="/metodos" class="card settings-card" style="text-decoration: none; color: inherit; cursor: pointer">
-        <div class="row" style="gap: 14px; align-items: center">
-          <span class="trial-ic" style="background: var(--s2); color: var(--text2)">
-            <SwIcon name="card" :size="20" />
-          </span>
-          <div class="col grow" style="gap: 3px; min-width: 0">
-            <span style="font-weight: 600">Métodos de pago</span>
-            <span class="faint" style="font-size: .86rem">Con qué pagas cada servicio</span>
-          </div>
-          <SwIcon name="chevronRight" :size="18" style="color: var(--text3)" />
-        </div>
-      </NuxtLink>
-
       <!-- Cerrar sesión: solo el botón, sin card -->
       <button class="btn btn-danger btn-block" style="width: 100%; padding: 15px 20px" @click="cerrarSesion">
         <SwIcon name="logout" :size="17" />Cerrar sesión

@@ -100,8 +100,8 @@ button { font-family: inherit; }
 .btn-ghost:hover { background: var(--s4); }
 .btn-quiet { background: transparent; color: var(--text2); padding-inline: calc(12px * var(--sp)); }
 .btn-quiet:hover { background: var(--s2); color: var(--text); }
-.btn-danger { background: transparent; color: var(--danger); }
-.btn-danger:hover { background: color-mix(in srgb, var(--danger) 12%, transparent); }
+.btn-danger { background: color-mix(in srgb, var(--danger) 14%, transparent); color: var(--danger); }
+.btn-danger:hover { background: color-mix(in srgb, var(--danger) 26%, transparent); }
 .btn-block { width: 100%; }
 .btn-lg { padding: calc(15px * var(--sp)) calc(24px * var(--sp)); font-size: 1rem; }
 .btn[disabled] { opacity: .5; cursor: not-allowed; }
@@ -170,6 +170,10 @@ button { font-family: inherit; }
 .input::placeholder { color: var(--text3); }
 .input:hover { background: var(--s3); }
 .input:focus { background: var(--s3); }
+/* Sin flechitas de número en el campo de monto. */
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 .input.has-icon-l { padding-left: calc(44px * var(--sp)); }
 .input.has-icon-r { padding-right: calc(44px * var(--sp)); }
 .input-icon {
@@ -206,7 +210,7 @@ button { font-family: inherit; }
 
 .popover {
   position: fixed; z-index: 120; background: var(--s2); border-radius: var(--radius-sm);
-  padding: 6px; outline: 1px solid var(--hair);
+  padding: 6px; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
   animation: pop .16s var(--ease);
   max-height: min(340px, 50vh); overflow-y: auto;
 }
