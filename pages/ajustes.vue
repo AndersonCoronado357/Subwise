@@ -9,27 +9,33 @@ const push = usePush()
 
 const drag = ref(false)
 const fileRef = ref<HTMLInputElement | null>(null)
+const cropFile = ref<File | null>(null)
 const passActual = ref('')
 const passNueva = ref('')
 const passConfirma = ref('')
 const passError = ref<string | null>(null)
 const passGuardado = ref(false)
 
-function leerImg(file: File | null | undefined) {
+// Al elegir una imagen se abre el modal para encuadrarla antes de guardar.
+function pedirRecorte(file: File | null | undefined) {
   if (!file || !file.type.startsWith('image/')) return
-  const r = new FileReader()
-  r.onload = () => { usuario.value.photo = String(r.result) }
-  r.readAsDataURL(file)
+  cropFile.value = file
 }
 function onDrop(e: DragEvent) {
   e.preventDefault(); drag.value = false
-  leerImg(e.dataTransfer?.files[0])
+  pedirRecorte(e.dataTransfer?.files[0])
 }
 function elegirArchivo() { fileRef.value?.click() }
 function onFile(e: Event) {
-  const f = (e.target as HTMLInputElement).files?.[0]
-  leerImg(f)
+  const input = e.target as HTMLInputElement
+  pedirRecorte(input.files?.[0])
+  input.value = '' // permite volver a elegir la misma foto
 }
+function fotoRecortada(dataUrl: string) {
+  usuario.value.photo = dataUrl
+  cropFile.value = null
+}
+function quitarFoto() { usuario.value.photo = '' }
 
 function guardarPass() {
   passError.value = null
@@ -78,19 +84,29 @@ const avisoOpts = [
       <div class="card settings-card">
         <span class="panel-title" style="display: block; margin-bottom: 16px">Perfil</span>
         <div class="profile-row">
-          <div
-            :class="['avatar-drop', 'round', drag ? 'drag' : '']"
-            @click="elegirArchivo"
-            @dragover.prevent="drag = true"
-            @dragleave="drag = false"
-            @drop="onDrop"
-          >
-            <img v-if="usuario.photo" :src="usuario.photo" alt="" />
-            <div v-else class="avatar-ph">
-              <SwIcon name="image" :size="28" />
-              <span>Arrastra una foto</span>
+          <div class="col" style="align-items: center; gap: 10px; flex-shrink: 0">
+            <div
+              :class="['avatar-drop', 'round', drag ? 'drag' : '']"
+              @click="elegirArchivo"
+              @dragover.prevent="drag = true"
+              @dragleave="drag = false"
+              @drop="onDrop"
+            >
+              <img v-if="usuario.photo" :src="usuario.photo" alt="" />
+              <div v-else class="avatar-ph">
+                <SwIcon name="image" :size="28" />
+                <span>Arrastra una foto</span>
+              </div>
+              <input ref="fileRef" type="file" accept="image/*" hidden @change="onFile" />
             </div>
-            <input ref="fileRef" type="file" accept="image/*" hidden @change="onFile" />
+            <button
+              v-if="usuario.photo"
+              type="button"
+              class="quitar-foto-link"
+              @click.stop="quitarFoto"
+            >
+              <SwIcon name="trash" :size="14" />Quitar foto
+            </button>
           </div>
           <div class="col grow" style="gap: 13px; min-width: 0">
             <SwField v-model="usuario.name" label="Nombre" />
@@ -194,15 +210,27 @@ const avisoOpts = [
         </div>
       </div>
 
-      <!-- Atajo a parámetros (categorías + métodos) -->
-      <NuxtLink to="/parametros" class="card settings-card" style="text-decoration: none; color: inherit; cursor: pointer">
+      <!-- Atajos a categorías y métodos de pago -->
+      <NuxtLink to="/categorias" class="card settings-card" style="text-decoration: none; color: inherit; cursor: pointer">
         <div class="row" style="gap: 14px; align-items: center">
           <span class="trial-ic" style="background: var(--s2); color: var(--text2)">
-            <SwIcon name="settings" :size="20" />
+            <SwIcon name="tag" :size="20" />
           </span>
           <div class="col grow" style="gap: 3px; min-width: 0">
-            <span style="font-weight: 600">Parámetros</span>
-            <span class="faint" style="font-size: .86rem">Categorías y métodos de pago</span>
+            <span style="font-weight: 600">Categorías</span>
+            <span class="faint" style="font-size: .86rem">Organiza tus suscripciones</span>
+          </div>
+          <SwIcon name="chevronRight" :size="18" style="color: var(--text3)" />
+        </div>
+      </NuxtLink>
+      <NuxtLink to="/metodos" class="card settings-card" style="text-decoration: none; color: inherit; cursor: pointer">
+        <div class="row" style="gap: 14px; align-items: center">
+          <span class="trial-ic" style="background: var(--s2); color: var(--text2)">
+            <SwIcon name="card" :size="20" />
+          </span>
+          <div class="col grow" style="gap: 3px; min-width: 0">
+            <span style="font-weight: 600">Métodos de pago</span>
+            <span class="faint" style="font-size: .86rem">Con qué pagas cada servicio</span>
           </div>
           <SwIcon name="chevronRight" :size="18" style="color: var(--text3)" />
         </div>
@@ -213,5 +241,23 @@ const avisoOpts = [
         <SwIcon name="logout" :size="17" />Cerrar sesión
       </button>
     </div>
+
+    <SwPhotoCrop
+      v-if="cropFile"
+      :file="cropFile"
+      @done="fotoRecortada"
+      @cancel="cropFile = null"
+    />
   </div>
 </template>
+
+<style scoped>
+.quitar-foto-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 0; background: transparent; cursor: pointer;
+  font-family: var(--font-body); font-weight: 600; font-size: .8rem;
+  color: var(--text3); padding: 4px 8px; border-radius: 8px;
+  transition: color .15s, background .15s;
+}
+.quitar-foto-link:hover { color: var(--danger); background: var(--s2); }
+</style>

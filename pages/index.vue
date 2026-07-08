@@ -38,7 +38,7 @@ function nuevaSub() { router.push('/suscripciones?mode=form') }
       </div>
     </div>
 
-    <div class="dash-grid">
+    <div :class="['dash-grid', trial ? 'has-trial' : '']">
       <!-- Hero total -->
       <div class="card hero-total">
         <div class="col" style="gap: 6px">

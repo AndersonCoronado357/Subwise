@@ -17,7 +17,7 @@
 @media (min-width: 900px) {
   .app-shell {
     display: grid;
-    grid-template-columns: clamp(218px, 19vw, 280px) 1fr;
+    grid-template-columns: clamp(194px, 15vw, 234px) 1fr;
     grid-template-rows: 1fr;
   }
   .app-shell > .sidebar { display: flex; min-height: 0; }
@@ -42,16 +42,16 @@
 .sidebar-brand { padding: 8px 12px clamp(18px, 2vw, 26px); }
 .sidebar-nav { display: flex; flex-direction: column; gap: 3px; flex: 1; min-height: 0; }
 .nav-item {
-  position: relative; display: flex; align-items: center; gap: 13px;
+  position: relative; display: flex; align-items: center; gap: 12px;
   border: 0; cursor: pointer; background: transparent; color: var(--text2);
-  font-family: var(--font-body); font-weight: 500; font-size: .96rem;
-  padding: 12px 14px; border-radius: 12px;
+  font-family: var(--font-body); font-weight: 500; font-size: .92rem;
+  padding: 11px 13px; border-radius: 12px;
   transition: background .16s, color .16s; text-align: left;
 }
 .nav-item:hover { background: var(--s2); color: var(--text); }
 .nav-item.on { background: var(--accent-soft); color: color-mix(in srgb, var(--accent) 80%, var(--text)); }
-.nav-item > span:not(.nav-mark) { flex: 1; }
-.nav-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.nav-item > span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav-item > svg { flex-shrink: 0; }
 
 .sidebar-foot { display: flex; flex-direction: column; gap: 12px; padding-top: 12px; }
 .user-chip {
@@ -123,9 +123,12 @@
   .dash-screen > .dash-grid { flex: 1; min-height: 0; }
   .dash-grid {
     grid-template-columns: 1.25fr 1fr;
-    grid-template-rows: auto auto 1fr;
+    /* Sin tarjeta de prueba: hero + fila de paneles que llena el alto. */
+    grid-template-rows: auto 1fr;
     align-items: stretch;
   }
+  /* Con tarjeta de prueba se añade su fila intermedia. */
+  .dash-grid.has-trial { grid-template-rows: auto auto 1fr; }
   .dash-grid > .hero-total, .dash-grid > .trial-card { grid-column: 1 / -1; }
 }
 /* dash-panel ocupa su celda, contenido scrollea adentro. */

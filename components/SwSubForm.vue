@@ -57,7 +57,7 @@ const form = reactive<{
   currency: props.cur || 'COP',
   cycle: 'mensual',
   nextCharge: addDays(TODAY, 30),
-  category: catsRef.value[0]?.id ?? 'entretenimiento',
+  category: catsRef.value[0]?.id ?? '',
   method: props.methods[0] ?? '',
   notes: '',
   tint: TINTS[Math.floor(Math.random() * TINTS.length)] ?? '#888',
@@ -133,7 +133,7 @@ const methodOpts = computed(() => props.methods.map(m => ({ value: m, label: m }
 
       <SwSelect v-model="form.currency" label="Moneda" :options="monedaOpts" />
 
-      <SwSelect v-model="form.category" label="Categoría" :options="catOpts" />
+      <SwSelect v-model="form.category" label="Categoría" :options="catOpts" placeholder="Elegir categoría" />
 
       <SwDatePicker v-model="form.nextCharge" label="Próximo cobro" />
 

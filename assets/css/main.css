@@ -169,7 +169,7 @@ button { font-family: inherit; }
 }
 .input::placeholder { color: var(--text3); }
 .input:hover { background: var(--s3); }
-.input:focus { background: var(--s3); box-shadow: inset 0 0 0 1px var(--hair2); }
+.input:focus { background: var(--s3); }
 .input.has-icon-l { padding-left: calc(44px * var(--sp)); }
 .input.has-icon-r { padding-right: calc(44px * var(--sp)); }
 .input-icon {
@@ -199,7 +199,7 @@ button { font-family: inherit; }
   transition: background .18s;
 }
 .select-trigger:hover { background: var(--s3); }
-.select-trigger.open { background: var(--s3); box-shadow: inset 0 0 0 1px var(--hair2); }
+.select-trigger.open { background: var(--s3); }
 .select-trigger .ph { color: var(--text3); }
 .select-trigger .chev { color: var(--text3); transition: transform .22s var(--ease); }
 .select-trigger.open .chev { transform: rotate(180deg); }

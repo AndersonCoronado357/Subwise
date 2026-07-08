@@ -9,18 +9,22 @@ const router = useRouter()
 const { usuario } = useDatos()
 
 const NAV = [
-  { id: 'inicio',    to: '/',              label: 'Inicio',        icon: 'home' as const },
-  { id: 'subs',      to: '/suscripciones', label: 'Suscripciones', icon: 'list' as const },
-  { id: 'resumen',   to: '/resumen',       label: 'Resumen',       icon: 'chart' as const },
-  { id: 'historial', to: '/historial',     label: 'Historial',     icon: 'clock' as const },
+  { id: 'inicio',     to: '/',              label: 'Inicio',        icon: 'home' as const },
+  { id: 'subs',       to: '/suscripciones', label: 'Suscripciones', icon: 'list' as const },
+  { id: 'resumen',    to: '/resumen',       label: 'Resumen',       icon: 'chart' as const },
+  { id: 'historial',  to: '/historial',     label: 'Historial',     icon: 'clock' as const },
+  { id: 'categorias', to: '/categorias',    label: 'Categorías',    icon: 'tag' as const },
+  { id: 'metodos',    to: '/metodos',       label: 'Métodos de pago', icon: 'card' as const },
 ]
 
 function activo(navId: string): boolean {
   const path = ruta.path
-  if (navId === 'inicio')    return path === '/'
-  if (navId === 'subs')      return path.startsWith('/suscripciones')
-  if (navId === 'resumen')   return path.startsWith('/resumen')
-  if (navId === 'historial') return path.startsWith('/historial')
+  if (navId === 'inicio')     return path === '/'
+  if (navId === 'subs')       return path.startsWith('/suscripciones')
+  if (navId === 'resumen')    return path.startsWith('/resumen')
+  if (navId === 'historial')  return path.startsWith('/historial')
+  if (navId === 'categorias') return path.startsWith('/categorias')
+  if (navId === 'metodos')    return path.startsWith('/metodos')
   return false
 }
 const ajustesActivo = computed(() => ruta.path.startsWith('/ajustes'))
@@ -51,7 +55,6 @@ function nuevaSuscripcion() {
           >
             <SwIcon :name="n.icon" :size="20" />
             <span>{{ n.label }}</span>
-            <span v-if="activo(n.id)" class="nav-mark" />
           </NuxtLink>
         </nav>
 

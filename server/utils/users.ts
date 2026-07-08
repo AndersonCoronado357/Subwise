@@ -1,7 +1,6 @@
 // Repo de usuarios (Nitro). Cada usuario se identifica por su correo.
 import type { RowDataPacket, ResultSetHeader } from 'mysql2'
 import { db } from './db'
-import { seedDemoSubs } from './data'
 
 export interface DbUser {
   id: number
@@ -16,15 +15,6 @@ export interface DbUser {
   email_alerts: number
   created_at: string
 }
-
-const CAT_DEFAULT: [string, string][] = [
-  ['entretenimiento', 'Entretenimiento'],
-  ['trabajo', 'Trabajo'],
-  ['salud', 'Salud'],
-  ['productividad', 'Productividad'],
-  ['educacion', 'Educación'],
-  ['compras', 'Compras'],
-]
 
 export function initialsFrom(name: string): string {
   const parts = String(name || '').trim().split(/\s+/).filter(Boolean)
@@ -53,21 +43,8 @@ export async function emailTaken(email: string): Promise<boolean> {
   return rows.length > 0
 }
 
-const METHOD_DEFAULT = ['Visa ··4821', 'Mastercard ··0067', 'PSE — Bancolombia', 'Nequi']
-
-async function seedDefaults(userId: number): Promise<void> {
-  for (const [id, label] of CAT_DEFAULT) {
-    await db().query('INSERT IGNORE INTO categories (user_id, id, label) VALUES (?,?,?)', [
-      userId,
-      id,
-      label,
-    ])
-  }
-  for (const label of METHOD_DEFAULT) {
-    await db().query('INSERT INTO payment_methods (user_id, label) VALUES (?,?)', [userId, label])
-  }
-}
-
+// Las cuentas nuevas arrancan completamente vacías: sin suscripciones,
+// categorías ni métodos de pago. El usuario los crea desde la app.
 export async function createUser(opts: {
   name: string
   email: string
@@ -79,8 +56,6 @@ export async function createUser(opts: {
     'INSERT INTO users (name, email, password_hash, google_id, initials) VALUES (?,?,?,?,?)',
     [opts.name, email, opts.passwordHash ?? null, opts.googleId ?? null, initialsFrom(opts.name)]
   )
-  await seedDefaults(res.insertId)
-  await seedDemoSubs(res.insertId)
   return (await getUserById(res.insertId))!
 }
 
