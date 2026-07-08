@@ -350,4 +350,8 @@
 /* ── Detalle móvil ───────────────────────────────────────── */
 @media (max-width: 899px) {
   .back-btn { display: inline-flex; }
+  /* En celular el detalle scrollea por dentro (no se corta en pantallas
+     bajas) y los botones de acción quedan fijos abajo. */
+  .detail-body { overflow-y: auto; }
+  .detail-body > .card { flex: 0 0 auto; }
 }

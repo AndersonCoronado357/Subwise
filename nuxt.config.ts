@@ -32,8 +32,8 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#FFFBEB' },
       ],
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/owl.svg' },
-        { rel: 'apple-touch-icon', href: '/owl.svg' },
+        { rel: 'icon', type: 'image/png', href: '/owl-icon.png' },
+        { rel: 'apple-touch-icon', href: '/owl-icon.png' },
       ],
       script: [
         {
@@ -77,8 +77,8 @@ export default defineNuxtConfig({
       display: 'standalone',
       start_url: '/',
       icons: [
-        { src: '/owl.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
-        { src: '/owl.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'maskable' },
+        { src: '/owl-icon.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+        { src: '/owl-icon.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
       ],
     },
     // Permite registrar y probar el SW en `nuxt dev`.
