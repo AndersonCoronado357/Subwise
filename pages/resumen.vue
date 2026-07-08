@@ -1,0 +1,116 @@
+<script setup lang="ts">
+import {
+  totals, byCategory, activeSubs, monthlyIn,
+  formatMoney, YEAR_SPEND,
+} from '~/composables/useDatos'
+
+useHead({ title: 'Resumen · Subwise' })
+
+const { suscripciones, moneda } = useDatos()
+
+const t   = computed(() => totals(suscripciones.value, moneda.value))
+const cats = computed(() => byCategory(suscripciones.value, moneda.value))
+const act = computed(() => activeSubs(suscripciones.value))
+const priciest = computed(() =>
+  [...act.value].sort((a, b) => monthlyIn(b, moneda.value) - monthlyIn(a, moneda.value))[0],
+)
+const avg = computed(() => act.value.length ? t.value.monthly / act.value.length : 0)
+const max = computed(() => Math.max(...YEAR_SPEND.map(d => d.v)))
+const min = computed(() => Math.min(...YEAR_SPEND.map(d => d.v)))
+const mixed = computed(() => new Set(act.value.map(s => s.currency)).size > 1)
+
+function alturaBarra(v: number): string {
+  const denom = (max.value - min.value) || 1
+  return `${18 + ((v - min.value) / denom) * 82}%`
+}
+</script>
+
+<template>
+  <div class="screen fill">
+    <div class="page-head">
+      <div class="col grow" style="gap: 2px; min-width: 0">
+        <span class="faint" style="font-size: .82rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase">
+          Últimos 12 meses
+        </span>
+        <h1 class="sw-title page-title">Resumen</h1>
+      </div>
+    </div>
+
+    <div class="fill-col">
+      <!-- hero anual -->
+      <div class="card stat-hero">
+        <div class="col" style="gap: 4px">
+          <span class="muted" style="font-size: .9rem">Pagarás este año</span>
+          <span class="sw-title num hero-num">{{ formatMoney(t.yearly, moneda) }}</span>
+        </div>
+        <div class="stat-meta">
+          <div class="col" style="gap: 2px">
+            <span class="faint" style="font-size: .78rem">Al mes</span>
+            <span class="num" style="font-weight: 600">{{ formatMoney(t.monthly, moneda) }}</span>
+          </div>
+          <div class="col" style="gap: 2px">
+            <span class="faint" style="font-size: .78rem">Promedio por servicio</span>
+            <span class="num" style="font-weight: 600">{{ formatMoney(avg, moneda) }}/mes</span>
+          </div>
+          <div class="col" style="gap: 2px">
+            <span class="faint" style="font-size: .78rem">Más caro</span>
+            <span class="num" style="font-weight: 600">{{ priciest?.name ?? '—' }}</span>
+          </div>
+          <div class="col" style="gap: 2px">
+            <span class="faint" style="font-size: .78rem">Activas</span>
+            <span class="num" style="font-weight: 600">{{ t.count }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-cols">
+        <!-- gráfico mensual -->
+        <div class="card chart-card">
+          <div class="spread" style="margin-bottom: 18px">
+            <span class="panel-title">Gasto mensual</span>
+            <span class="faint num" style="font-size: .8rem">
+              {{ formatMoney(min, moneda) }} – {{ formatMoney(max, moneda) }}
+            </span>
+          </div>
+          <div class="chart">
+            <div
+              v-for="(d, i) in YEAR_SPEND"
+              :key="i"
+              class="chart-col"
+              :title="formatMoney(d.v, moneda)"
+            >
+              <div
+                class="chart-bar"
+                :style="{
+                  height: alturaBarra(d.v),
+                  opacity: i === YEAR_SPEND.length - 1 ? 1 : 0.55,
+                }"
+              />
+              <span class="chart-x">{{ d.m }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- por categoría -->
+        <div class="card cat-card">
+          <span class="panel-title" style="display: block; margin-bottom: 16px">Por categoría</span>
+          <div class="col" style="gap: 15px">
+            <div v-for="cat in cats" :key="cat.id" class="col" style="gap: 7px">
+              <div class="spread">
+                <span style="font-size: .9rem; font-weight: 500">{{ cat.label }}</span>
+                <span class="num faint" style="font-size: .84rem">
+                  {{ formatMoney(cat.value, moneda) }} ·
+                  {{ Math.round(t.monthly ? (cat.value / t.monthly) * 100 : 0) }}%
+                </span>
+              </div>
+              <SwProgressBar :pct="t.monthly ? (cat.value / t.monthly) * 100 : 0" />
+            </div>
+          </div>
+          <p v-if="mixed" class="faint" style="font-size: .8rem; margin: 16px 0 0; line-height: 1.5">
+            Incluye cobros en otras monedas, convertidos a {{ moneda }} con la tasa actual.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,339 @@
+/* layout.css — shell y pantallas de Subwise */
+
+#__nuxt { height: 100%; }
+.sw-root { height: 100dvh; width: 100%; background: var(--bg); color: var(--text); overflow: hidden; }
+
+/* ── Shell ───────────────────────────────────────────────── */
+/* Mobile-first: column con tabbar abajo. Sidebar oculta. */
+.app-shell {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+.app-shell > .sidebar { display: none; }
+.app-shell > .tabbar  { display: flex; }
+
+/* Desktop ≥900px: grid sidebar + main, tabbar oculta. */
+@media (min-width: 900px) {
+  .app-shell {
+    display: grid;
+    grid-template-columns: clamp(218px, 19vw, 280px) 1fr;
+    grid-template-rows: 1fr;
+  }
+  .app-shell > .sidebar { display: flex; min-height: 0; }
+  .app-shell > .tabbar  { display: none; }
+}
+
+.app-main {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow: hidden;
+}
+.app-main > * { flex: 1; min-height: 0; }
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+.sidebar {
+  background: var(--s1); display: flex; flex-direction: column;
+  padding: clamp(18px, 1.4vw, 26px) clamp(12px, 1vw, 16px); min-height: 0;
+}
+.sidebar-brand { padding: 8px 12px clamp(18px, 2vw, 26px); }
+.sidebar-nav { display: flex; flex-direction: column; gap: 3px; flex: 1; min-height: 0; }
+.nav-item {
+  position: relative; display: flex; align-items: center; gap: 13px;
+  border: 0; cursor: pointer; background: transparent; color: var(--text2);
+  font-family: var(--font-body); font-weight: 500; font-size: .96rem;
+  padding: 12px 14px; border-radius: 12px;
+  transition: background .16s, color .16s; text-align: left;
+}
+.nav-item:hover { background: var(--s2); color: var(--text); }
+.nav-item.on { background: var(--accent-soft); color: color-mix(in srgb, var(--accent) 80%, var(--text)); }
+.nav-item > span:not(.nav-mark) { flex: 1; }
+.nav-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+.sidebar-foot { display: flex; flex-direction: column; gap: 12px; padding-top: 12px; }
+.user-chip {
+  display: flex; align-items: center; gap: 11px; border: 0; background: transparent; cursor: pointer;
+  padding: 9px 11px; border-radius: 14px; transition: background .16s; width: 100%;
+}
+.user-chip:hover, .user-chip.on { background: var(--s2); }
+.user-av {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--s3); color: var(--text);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-title); font-weight: 600; overflow: hidden;
+}
+.user-av img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── Tabbar móvil + FAB ──────────────────────────────────── */
+.tabbar {
+  height: var(--tab-h); background: var(--s1);
+  display: flex; align-items: center; justify-content: space-around;
+  flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom); padding-inline: 6px;
+}
+.tab-btn {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  border: 0; cursor: pointer; background: transparent; color: var(--text3);
+  font-family: var(--font-body); font-size: .68rem; font-weight: 600;
+  padding: 8px 0; transition: color .16s;
+}
+.tab-btn.on { color: var(--accent); }
+.fab {
+  flex-shrink: 0; width: 54px; height: 54px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-ink); border: 0;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin: 0 8px;
+  transition: transform .14s var(--ease), background .18s;
+}
+.fab:hover { background: color-mix(in srgb, var(--accent) 88%, #fff); }
+.fab:active { transform: scale(.92); }
+
+/* ── Pantalla genérica ───────────────────────────────────── */
+.screen { height: 100%; overflow-y: auto; padding: clamp(18px, 2.6vw, 32px) clamp(16px, 3vw, 36px) clamp(28px, 4vw, 44px); }
+.screen.fill { display: flex; flex-direction: column; overflow: hidden; }
+.screen.fill .fill-col { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 18px); }
+.screen.fill .fill-col > .list-fill { flex: 1; min-height: 0; overflow-y: auto; }
+
+.page-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  margin-bottom: clamp(16px, 2.2vw, 24px);
+}
+.page-head .col { gap: 5px; }
+.page-title {
+  font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -.02em; margin: 0; color: var(--text); line-height: 1.08;
+}
+.panel-title { font-family: var(--font-title); font-weight: 600; font-size: 1rem; color: var(--text); white-space: nowrap; }
+.hero-num {
+  font-family: var(--font-title); font-weight: 600;
+  font-size: clamp(2.3rem, 4.6vw, 3.1rem); letter-spacing: -.03em; color: var(--text); line-height: 1;
+}
+
+/* ── Dashboard ───────────────────────────────────────────── */
+.dash-grid {
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+  grid-template-columns: 1fr;
+}
+/* En desktop la pantalla llena el viewport, los paneles row-3 ocupan
+   el alto restante con scroll interno cuando hay muchos items. */
+@media (min-width: 900px) {
+  .dash-screen { display: flex; flex-direction: column; overflow: hidden; }
+  .dash-screen > .dash-grid { flex: 1; min-height: 0; }
+  .dash-grid {
+    grid-template-columns: 1.25fr 1fr;
+    grid-template-rows: auto auto 1fr;
+    align-items: stretch;
+  }
+  .dash-grid > .hero-total, .dash-grid > .trial-card { grid-column: 1 / -1; }
+}
+/* dash-panel ocupa su celda, contenido scrollea adentro. */
+.dash-panel { display: flex; flex-direction: column; min-height: 0; }
+.dash-panel > .spread { flex-shrink: 0; }
+.dash-panel-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
+.up-row {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  border: 0; background: transparent; cursor: pointer;
+  padding: 11px 4px; color: var(--text); border-radius: 10px;
+  transition: background .14s; text-align: left;
+}
+.up-row:hover { background: var(--s2); }
+.up-row > .col:first-of-type { overflow: hidden; }
+.up-row > .col:first-of-type > span:first-child {
+  display: block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.up-row > .col:last-child { flex-shrink: 0; align-items: flex-end; white-space: nowrap; }
+
+.trial-card {
+  display: flex; align-items: center; gap: 14px; width: 100%; border: 0; cursor: pointer; text-align: left;
+  background: var(--accent-faint); padding: clamp(15px, 1.8vw, 20px);
+  color: var(--text); border-radius: var(--radius); transition: background .16s;
+}
+.trial-card:hover { background: var(--accent-soft); }
+.trial-ic {
+  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  background: var(--accent-soft);
+  color: color-mix(in srgb, var(--accent) 85%, var(--text));
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Suscripciones master/detail ─────────────────────────── */
+.subs-split { display: grid; grid-template-columns: minmax(330px, 33%) 1fr; height: 100%; min-height: 0; }
+.subs-pane-l { background: var(--s1); display: flex; flex-direction: column; min-height: 0; }
+.subs-pane-r { background: var(--bg); min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+.subs-master {
+  display: flex; flex-direction: column; height: 100%; min-height: 0;
+  padding: clamp(16px, 2vw, 24px); gap: 14px;
+}
+.master-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.master-title {
+  font-family: var(--font-title); font-weight: 600;
+  font-size: clamp(1.3rem, 1.7vw, 1.55rem); letter-spacing: -.02em; margin: 0; color: var(--text);
+}
+.subs-controls { display: flex; flex-direction: column; gap: 12px; }
+/* Chips wrappean a líneas múltiples — siempre visibles, sin scroll horizontal. */
+.chips-scroll { flex-wrap: wrap; gap: 6px; }
+.chips-scroll > .chip { flex-shrink: 0; }
+.subs-rows {
+  flex: 1; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 2px;
+  margin: 0 calc(-1 * clamp(6px, 1vw, 10px));
+  padding: 2px clamp(6px, 1vw, 10px);
+}
+.sub-row {
+  display: flex; align-items: center; gap: 13px; width: 100%;
+  border: 0; background: transparent; cursor: pointer; text-align: left;
+  padding: clamp(10px, 1.2vw, 14px); border-radius: 14px;
+  color: var(--text); transition: background .14s;
+}
+.sub-row:hover { background: var(--s2); }
+.sub-row.active { background: var(--s2); }
+.sub-row > .col:first-of-type { overflow: hidden; }
+.sub-row > .col:first-of-type > .row { width: 100%; max-width: 100%; min-width: 0; }
+.sub-row > .col:first-of-type > .row > span:first-child {
+  flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sub-row > .col:first-of-type > span.faint {
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+}
+.sub-row > .col:last-child { flex-shrink: 0; white-space: nowrap; }
+
+/* ── Detalle ─────────────────────────────────────────────── */
+/* Sin scroll interno — el contenido cabe y LLENA el viewport. */
+.detail {
+  height: 100%; padding: clamp(18px, 2.2vw, 30px);
+  display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 16px);
+  background: var(--bg); overflow: hidden;
+}
+.detail-body {
+  flex: 1; min-height: 0;
+  display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 16px);
+}
+/* Los cards crecen para distribuir el alto disponible.
+   Sin huecos en blanco entre la última card y los botones de acción. */
+.detail-body > .card { flex: 1 1 auto; min-height: 0; }
+/* El card del monto alinea hero arriba (flex-start) y la píldora de
+   próximo cobro a la derecha — separados con space-between. */
+.detail-amount { align-items: flex-start; }
+/* Acciones: dos botones que ocupan el 100% del ancho disponible. */
+.detail-actions > .btn { flex: 1; }
+.detail-top { display: flex; align-items: center; gap: 14px; }
+.back-btn { display: none; }
+.detail-amount {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+}
+.next-pill { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; }
+.info-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
+.info-row span { white-space: nowrap; }
+.detail-actions {
+  display: flex; align-items: stretch; gap: 10px; margin-top: 4px;
+  flex-shrink: 0;
+}
+.detail-empty {
+  height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 14px; padding: 30px;
+  background: var(--bg);
+}
+.price-hist { display: flex; flex-direction: column; }
+.price-step { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+.price-step:not(:last-child) { border-bottom: 1px solid var(--hair); }
+
+/* ── Resumen ─────────────────────────────────────────────── */
+.resume-cols { display: grid; gap: clamp(12px, 1.4vw, 18px); grid-template-columns: 1fr; flex: 1; min-height: 0; }
+@media (min-width: 900px) {
+  .resume-cols { grid-template-columns: 1fr 1fr; align-items: stretch; }
+}
+.stat-hero { display: flex; flex-direction: column; gap: 14px; }
+.stat-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px 22px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--hair); }
+.chart-card { display: flex; flex-direction: column; }
+.cat-card { display: flex; flex-direction: column; }
+.chart {
+  display: flex; align-items: flex-end; gap: clamp(5px, 1vw, 12px);
+  flex: 1; min-height: clamp(140px, 22vh, 220px);
+}
+.chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+.chart-bar { width: 100%; max-width: 36px; background: var(--accent); border-radius: 7px 7px 0 0; }
+.chart-x { font-size: .72rem; color: var(--text3); }
+
+/* ── Historial ───────────────────────────────────────────── */
+.saving-card { display: flex; flex-direction: column; }
+.list-fill { display: flex; flex-direction: column; }
+.hist-row { display: flex; align-items: center; gap: 13px; padding: 13px 0; }
+.empty { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 44px 0; }
+
+/* ── Ajustes ─────────────────────────────────────────────── */
+.settings-col { display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 18px); }
+.settings-card { display: flex; flex-direction: column; }
+/* Avatar gigante a la izquierda, fields centrados verticalmente al lado. */
+.profile-row { display: flex; gap: clamp(20px, 2.4vw, 36px); align-items: center; flex-wrap: wrap; }
+/* Foto de perfil mucho más grande. */
+.avatar-drop {
+  width: clamp(180px, 18vw, 240px); height: clamp(180px, 18vw, 240px);
+  border-radius: 26px; background: var(--s2);
+  cursor: pointer; overflow: hidden; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .16s;
+}
+.avatar-drop.round { border-radius: 50%; }
+.avatar-drop:hover { background: var(--s3); }
+.avatar-drop.drag { background: var(--accent-soft); }
+.avatar-drop img { width: 100%; height: 100%; object-fit: cover; }
+.avatar-ph {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text3); font-size: .78rem; text-align: center; padding: 10px;
+}
+.set-list { display: flex; flex-direction: column; }
+.set-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 15px 0;
+}
+.readonly-box {
+  display: flex; align-items: center; gap: 11px;
+  background: var(--s2); border-radius: var(--radius-sm);
+  padding: 13px 15px; color: var(--text2); font-size: .92rem;
+}
+
+/* ── Formulario inline ───────────────────────────────────── */
+.form-pane { display: flex; flex-direction: column; height: 100%; min-height: 0; background: var(--bg); }
+.form-head {
+  display: flex; align-items: center; gap: 14px; flex-shrink: 0;
+  padding: clamp(18px, 2.2vw, 30px) clamp(18px, 2.2vw, 30px) clamp(14px, 1.6vw, 18px);
+}
+.form-body {
+  flex: 1; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 14px;
+  padding: 0 clamp(18px, 2.2vw, 30px) clamp(20px, 2.4vw, 30px);
+}
+/* Form: cada campo en su propia fila salvo donde se agrupe explícitamente. */
+.grow-field { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.grow-field > .input-wrap, .grow-field > .input-wrap > .input { flex: 1; }
+.grow-field > .input-wrap > .input { min-height: clamp(120px, 18vh, 200px); }
+.form-actions-full { display: flex; gap: 10px; flex-shrink: 0; padding-top: 6px; }
+.form-actions-full > .btn { flex: 1; }
+/* Fila de dos campos relacionados (monto + ciclo). Centrados verticalmente. */
+.form-row-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  align-items: center;
+}
+@media (max-width: 620px) {
+  .form-row-2 { grid-template-columns: 1fr; }
+}
+
+/* ── Métodos de pago ─────────────────────────────────────── */
+.method-list { display: flex; flex-direction: column; }
+.method-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; }
+.method-row + .method-row { border-top: 1px solid var(--hair); }
+.method-add { display: flex; align-items: stretch; gap: 10px; margin-top: 14px; }
+.method-add > label { flex: 1; min-width: 0; }
+
+/* ── Botón cerrar sesión a todo el ancho ─────────────────── */
+.btn-block-left {
+  width: 100%; justify-content: flex-start; padding-left: 16px;
+}
+
+/* ── Detalle móvil ───────────────────────────────────────── */
+@media (max-width: 899px) {
+  .back-btn { display: inline-flex; }
+}
