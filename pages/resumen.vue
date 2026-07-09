@@ -23,8 +23,8 @@ const mixed = computed(() => new Set(act.value.map(s => s.currency)).size > 1)
 // En celular se muestra una sección a la vez (en PC ambas).
 const vista = ref<'mensual' | 'categoria'>('mensual')
 const vistaOpts = [
-  { value: 'mensual', label: 'Gasto mensual' },
-  { value: 'categoria', label: 'Por categoría' },
+  { value: 'mensual', label: 'Mensual' },
+  { value: 'categoria', label: 'Categorías' },
 ]
 
 // Altura proporcional al máximo real; los meses en cero quedan casi planos.
@@ -43,6 +43,12 @@ function alturaBarra(v: number): string {
         </span>
         <h1 class="sw-title page-title">Resumen</h1>
       </div>
+      <SwSegmented
+        class="resume-toggle only-mobile"
+        :model-value="vista"
+        :options="vistaOpts"
+        @update:model-value="v => vista = v as 'mensual' | 'categoria'"
+      />
     </div>
 
     <div class="fill-col">
@@ -71,13 +77,6 @@ function alturaBarra(v: number): string {
           </div>
         </div>
       </div>
-
-      <SwSegmented
-        class="resume-toggle only-mobile"
-        :model-value="vista"
-        :options="vistaOpts"
-        @update:model-value="v => vista = v as 'mensual' | 'categoria'"
-      />
 
       <div :class="['resume-cols', vista === 'categoria' ? 'ver-cat' : 'ver-mensual']">
         <!-- gráfico mensual -->
@@ -110,7 +109,7 @@ function alturaBarra(v: number): string {
         <!-- por categoría -->
         <div class="card cat-card">
           <span class="panel-title" style="display: block; margin-bottom: 16px">Por categoría</span>
-          <div class="col" style="gap: 15px">
+          <div class="col cat-list" style="gap: 15px">
             <div v-for="cat in cats" :key="cat.id" class="col" style="gap: 7px">
               <div class="spread">
                 <span style="font-size: .9rem; font-weight: 500">{{ cat.label }}</span>
