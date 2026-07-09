@@ -46,10 +46,10 @@ button { font-family: inherit; }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg:    hsl(45 10% 4.5%);
-  --s1:    hsl(45 9% 11%);
-  --s2:    hsl(45 8% 17%);
-  --s3:    hsl(45 8% 22%);
+  --bg:    hsl(45 9% 7%);
+  --s1:    hsl(45 8% 13%);
+  --s2:    hsl(45 7% 18.5%);
+  --s3:    hsl(45 7% 24%);
   --s4:    hsl(44 8% 23%);
   --text:  hsl(45 18% 94%);
   --text2: hsl(44 10% 66%);
