@@ -402,6 +402,10 @@
   .resume-toggle { flex-shrink: 0; }
   .resume-cols.ver-mensual .cat-card { display: none; }
   .resume-cols.ver-cat .chart-card { display: none; }
+  /* La fila acota su altura al contenedor (minmax min 0): así la tarjeta visible
+     no crece con el contenido y su lista scrollea por dentro en vez de salirse
+     por debajo del menú (mismo comportamiento en 'mensual' y 'categorías'). */
+  .resume-cols { grid-template-rows: minmax(0, 1fr); }
   /* Aire claro entre el contenido y la barra inferior en pantallas 'fill'. */
   .screen.fill { padding-bottom: clamp(28px, 7vw, 44px); }
 }
