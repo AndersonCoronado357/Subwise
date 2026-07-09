@@ -141,9 +141,10 @@
   .dash-grid.has-trial { grid-template-rows: auto auto 1fr; }
   .dash-grid > .hero-total, .dash-grid > .trial-card { grid-column: 1 / -1; }
 }
-/* Hero total: monto a la izquierda, stats a la derecha, llenando el ancho. */
-.hero-total { display: flex; align-items: center; justify-content: space-between; gap: clamp(18px, 4vw, 48px); flex-wrap: wrap; }
-.hero-stats { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px); flex-wrap: wrap; }
+/* Hero total (desktop): monto a la izquierda, las 3 métricas a la derecha. */
+.hero-total { display: flex; align-items: center; gap: clamp(18px, 3vw, 40px); flex-wrap: wrap; }
+.hero-total > .hero-amount { margin-right: auto; }
+.hero-stat { display: flex; flex-direction: column; gap: 3px; }
 
 /* dash-panel ocupa su celda, contenido scrollea adentro. */
 .dash-panel { display: flex; flex-direction: column; min-height: 0; }
@@ -389,18 +390,18 @@
   .dash-grid > .card { flex: 0 0 auto; }
   .dash-panel { min-height: 0; }
   .dash-panel-body { overflow: visible; flex: 0 0 auto; }
-  /* Inicio (celular): monto grande arriba y métricas como lista (etiqueta izq ·
-     valor der) — los valores anchos caben en una línea, sin encimarse. */
-  .hero-total { flex-direction: column; align-items: stretch; text-align: left; gap: 18px; }
-  .hero-total > .col:first-child { align-items: flex-start; }
-  .hero-total .vhair { display: none; }
-  .hero-stats { display: flex; flex-direction: column; gap: 15px; }
-  .hero-stats > .col { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 14px; }
-  .hero-stats > .col > .faint { font-size: .86rem; }
-  .hero-stats > .col > .num { font-size: 1.08rem; }
+  /* Inicio (celular): 2x2 — monto grande arriba-izq, Activas arriba-der,
+     Al año abajo-izq, Próximo cobro abajo-der. */
+  .hero-total { display: grid; grid-template-columns: 1fr auto; gap: 20px 16px; align-items: start; }
+  .hero-total > .hero-amount { margin-right: 0; grid-column: 1; grid-row: 1; align-items: flex-start; }
+  .hero-total > .hero-alanio { grid-column: 1; grid-row: 2; }
+  .hero-total > .hero-activas { grid-column: 2; grid-row: 1; }
+  .hero-total > .hero-proximo { grid-column: 2; grid-row: 2; }
+  .hero-total > .hero-activas, .hero-total > .hero-proximo { align-items: flex-end; text-align: right; }
   /* Resumen (celular): una sección a la vez según el selector, con aire abajo. */
   .resume-toggle { flex-shrink: 0; }
   .resume-cols.ver-mensual .cat-card { display: none; }
   .resume-cols.ver-cat .chart-card { display: none; }
-  .screen.fill { padding-bottom: clamp(20px, 5vw, 32px); }
+  /* Aire claro entre el contenido y la barra inferior en pantallas 'fill'. */
+  .screen.fill { padding-bottom: clamp(28px, 7vw, 44px); }
 }

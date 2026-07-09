@@ -36,25 +36,21 @@ function nuevaSub() { router.push('/suscripciones?mode=form') }
     <div :class="['dash-grid', trial ? 'has-trial' : '']">
       <!-- Hero total -->
       <div class="card hero-total">
-        <div class="col" style="gap: 6px">
+        <div class="col hero-amount" style="gap: 6px">
           <span class="muted" style="font-size: .9rem">Gastas al mes</span>
           <span class="sw-title num hero-num">{{ formatMoney(t.monthly, moneda) }}</span>
         </div>
-        <div class="row hero-stats">
-          <div class="col" style="gap: 3px">
-            <span class="faint" style="font-size: .8rem">Al año</span>
-            <span class="num" style="font-weight: 600; font-size: 1.15rem">{{ formatMoney(t.yearly, moneda) }}</span>
-          </div>
-          <div class="vhair" style="height: 34px" />
-          <div class="col" style="gap: 3px">
-            <span class="faint" style="font-size: .8rem">Activas</span>
-            <span class="num" style="font-weight: 600; font-size: 1.15rem">{{ t.count }}</span>
-          </div>
-          <div class="vhair" style="height: 34px" />
-          <div class="col" style="gap: 3px">
-            <span class="faint" style="font-size: .8rem">Próximo cobro</span>
-            <span class="num" style="font-weight: 600; font-size: 1.15rem">{{ next[0] ? relativeDay(next[0].nextCharge) : '—' }}</span>
-          </div>
+        <div class="col hero-stat hero-alanio" style="gap: 3px">
+          <span class="faint" style="font-size: .8rem">Al año</span>
+          <span class="num" style="font-weight: 600; font-size: 1.15rem">{{ formatMoney(t.yearly, moneda) }}</span>
+        </div>
+        <div class="col hero-stat hero-activas" style="gap: 3px">
+          <span class="faint" style="font-size: .8rem">Activas</span>
+          <span class="num" style="font-weight: 600; font-size: 1.15rem">{{ t.count }}</span>
+        </div>
+        <div class="col hero-stat hero-proximo" style="gap: 3px">
+          <span class="faint" style="font-size: .8rem">Próximo cobro</span>
+          <span class="num" style="font-weight: 600; font-size: 1.15rem">{{ next[0] ? relativeDay(next[0].nextCharge) : '—' }}</span>
         </div>
       </div>
 
