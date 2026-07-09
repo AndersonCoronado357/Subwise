@@ -56,7 +56,8 @@ async function sendTo(sub: SubRow, payload: string): Promise<boolean> {
   try {
     await webpush.sendNotification(
       { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
-      payload
+      payload,
+      { urgency: 'high', TTL: 3600 }
     )
     return true
   } catch (e) {

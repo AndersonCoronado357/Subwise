@@ -30,8 +30,11 @@ self.addEventListener('push', (event) => {
     self.registration.showNotification(title, {
       body,
       tag: data.tag || 'subwise',
+      requireInteraction: true,
+      renotify: true,
+      vibrate: [200, 100, 200],
       data: { url: data.url || '/' },
-    }),
+    } as NotificationOptions),
   )
 })
 
