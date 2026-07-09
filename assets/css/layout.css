@@ -370,17 +370,11 @@
      bajas) y los botones de acción quedan fijos abajo. */
   .detail-body { overflow-y: auto; }
   .detail-body > .card { flex: 0 0 auto; }
-  /* En celular la lista no tiene detalle al lado, así que ningún item va
-     preseleccionado: todos se ven igual. */
-  .sub-row.active { background: transparent; }
-  /* Inicio: el encabezado queda fijo arriba mientras se hace scroll. El margen
-     negativo + padding hace que su fondo cubra hasta el borde (sin franja
-     de contenido asomando por encima). */
-  .dash-screen > .page-head {
-    position: sticky; top: 0; z-index: 6; background: var(--bg);
-    margin: calc(-1 * clamp(18px, 2.6vw, 32px)) calc(-1 * clamp(16px, 3vw, 36px)) 12px;
-    padding: clamp(18px, 2.6vw, 32px) clamp(16px, 3vw, 36px) 10px;
-  }
+  /* En celular cada suscripción se ve como una tarjeta (distinta del fondo)
+     y ninguna va preseleccionada. */
+  .sub-rows { gap: 8px; }
+  .sub-row, .sub-row.active { background: var(--s1); }
+  .sub-row:hover, .sub-row:active { background: var(--s2); }
   /* Inicio (celular): monto arriba y stats como lista (etiqueta izq · valor der),
      sin líneas divisorias y usando todo el ancho. */
   .hero-total { flex-direction: column; align-items: stretch; text-align: left; gap: 16px; }

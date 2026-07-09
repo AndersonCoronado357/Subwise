@@ -64,10 +64,10 @@ button { font-family: inherit; }
 }
 [data-theme="light"] {
   color-scheme: light;
-  --bg:    hsl(46 56% 95.5%);
+  --bg:    hsl(46 48% 92.5%);
   --s1:    hsl(48 60% 99%);
-  --s2:    hsl(46 42% 91.5%);
-  --s3:    hsl(45 34% 87%);
+  --s2:    hsl(46 32% 89%);
+  --s3:    hsl(45 28% 84%);
   --s4:    hsl(44 28% 81%);
   --text:  hsl(43 38% 9%);
   --text2: hsl(43 12% 38%);
