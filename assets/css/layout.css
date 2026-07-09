@@ -166,7 +166,12 @@
 
 /* ── Suscripciones master/detail ─────────────────────────── */
 .subs-split { display: grid; grid-template-columns: minmax(330px, 33%) 1fr; height: 100%; min-height: 0; }
-.subs-pane-l { background: var(--s1); display: flex; flex-direction: column; min-height: 0; }
+/* Panel de la lista: tono un poco más elevado y borde para distinguirlo del fondo. */
+.subs-pane-l {
+  background: color-mix(in srgb, var(--s2) 40%, var(--s1));
+  border-right: 1px solid var(--hair2);
+  display: flex; flex-direction: column; min-height: 0;
+}
 .subs-pane-r { background: var(--bg); min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
 .subs-master {
   display: flex; flex-direction: column; height: 100%; min-height: 0;
@@ -209,9 +214,12 @@
 /* Sin scroll interno — el contenido cabe y LLENA el viewport. */
 .detail {
   height: 100%; padding: clamp(18px, 2.2vw, 30px);
-  display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 16px);
+  display: flex; flex-direction: column; align-items: center; gap: clamp(12px, 1.4vw, 16px);
   background: var(--bg); overflow: hidden;
 }
+/* Contenido acotado y centrado: en paneles anchos no queda medio lado vacío. */
+.detail > * { width: 100%; max-width: 880px; }
+.detail > .detail-top { flex-shrink: 0; }
 .detail-body {
   flex: 1; min-height: 0;
   display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 16px);
@@ -219,18 +227,18 @@
 /* Los cards crecen para distribuir el alto disponible.
    Sin huecos en blanco entre la última card y los botones de acción. */
 .detail-body > .card { flex: 1 1 auto; min-height: 0; }
-/* El card del monto alinea hero arriba (flex-start) y la píldora de
-   próximo cobro a la derecha — separados con space-between. */
-.detail-amount { align-items: flex-start; }
+/* El card del monto: hero centrado (monto grande + próximo cobro debajo),
+   bien distribuido sin dejar medio lado vacío. */
+.detail-amount {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 16px;
+}
+.detail-amount > .col { align-items: center; }
 /* Acciones: dos botones que ocupan el 100% del ancho disponible. */
 .detail-actions > .btn { flex: 1; }
 .detail-top { display: flex; align-items: center; gap: 14px; }
 .back-btn { display: none; }
-.detail-amount {
-  display: flex; align-items: flex-end; justify-content: space-between;
-  gap: 20px; flex-wrap: wrap;
-}
-.next-pill { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; }
+.next-pill { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
 .info-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
 .info-row span { white-space: nowrap; }
 .detail-actions {
@@ -316,7 +324,7 @@
 .grow-field { flex: 1; min-height: 0; display: flex; flex-direction: column; }
 .grow-field > .input-wrap, .grow-field > .input-wrap > .input { flex: 1; }
 .grow-field > .input-wrap > .input { min-height: clamp(120px, 18vh, 200px); }
-.form-actions-full { display: flex; gap: 10px; flex-shrink: 0; padding-top: 6px; }
+.form-actions-full { display: flex; gap: 10px; flex-shrink: 0; padding-top: 12px; margin-top: auto; }
 .form-actions-full > .btn { flex: 1; }
 /* Fila de dos campos relacionados (monto + ciclo). Centrados verticalmente. */
 .form-row-2 {
@@ -325,6 +333,8 @@
 }
 @media (max-width: 620px) {
   .form-row-2 { grid-template-columns: 1fr; }
+  /* Perfil: foto centrada arriba, nombre y correo apilados debajo. */
+  .profile-row { flex-direction: column; align-items: stretch; gap: 18px; }
 }
 
 /* ── Categorías / Métodos de pago (módulos) ──────────────── */
@@ -354,4 +364,9 @@
      bajas) y los botones de acción quedan fijos abajo. */
   .detail-body { overflow-y: auto; }
   .detail-body > .card { flex: 0 0 auto; }
+  /* Inicio: el encabezado queda fijo arriba mientras se hace scroll. */
+  .dash-screen > .page-head {
+    position: sticky; top: 0; z-index: 6;
+    background: var(--bg); padding-block: 6px 4px; margin-bottom: 12px;
+  }
 }

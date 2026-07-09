@@ -31,11 +31,6 @@ function nuevaSub() { router.push('/suscripciones?mode=form') }
         </span>
         <h1 class="sw-title page-title">Tu mes</h1>
       </div>
-      <div class="row" style="gap: 10px; flex-shrink: 0">
-        <SwButton variant="primary" @click="nuevaSub">
-          <SwIcon name="plus" :size="18" />Añadir
-        </SwButton>
-      </div>
     </div>
 
     <div :class="['dash-grid', trial ? 'has-trial' : '']">

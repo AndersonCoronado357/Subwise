@@ -155,7 +155,6 @@ const methodOpts = computed(() => props.methods.map(m => ({ value: m, label: m }
         label="Notas"
         as="textarea"
         placeholder="Opcional (qué incluye el plan, recordatorios…)"
-        grow
       />
 
       <div class="form-actions-full">

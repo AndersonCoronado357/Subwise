@@ -211,6 +211,7 @@ const avisoOpts = [
       </div>
 
       <!-- Categorías y métodos: solo en celular (en PC están en el sidebar) -->
+      <span class="panel-title only-mobile" style="display: block; margin: 6px 2px 0">Configuración</span>
       <NuxtLink to="/categorias" class="card settings-card only-mobile" style="text-decoration: none; color: inherit; cursor: pointer">
         <div class="row" style="gap: 14px; align-items: center">
           <span class="trial-ic" style="background: var(--s2); color: var(--text2)">

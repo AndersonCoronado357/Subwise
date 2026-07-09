@@ -31,7 +31,6 @@ const conversion = computed(() => props.sub && props.sub.currency !== props.cur)
   </div>
 
   <div v-else class="detail" :key="sub.id">
-    <div class="detail-body">
       <div class="detail-top">
         <SwIconBtn
           v-if="showBack"
@@ -55,6 +54,7 @@ const conversion = computed(() => props.sub && props.sub.currency !== props.cur)
         <SwIconBtn v-if="!canceled" name="edit" aria-label="Editar" @click="emit('edit')" />
       </div>
 
+      <div class="detail-body">
       <!-- Monto -->
       <div class="card detail-amount">
         <div class="col" style="gap: 5px">
@@ -148,7 +148,7 @@ const conversion = computed(() => props.sub && props.sub.currency !== props.cur)
         class="grow"
         @click="emit('cancel', sub.id)"
       >
-        <SwIcon name="x" :size="17" />Marcar como cancelada
+        <SwIcon name="x" :size="17" />Cancelar
       </SwButton>
       <SwButton variant="danger" :leaves="false" @click="emit('remove', sub.id)">
         <SwIcon name="trash" :size="17" />Eliminar

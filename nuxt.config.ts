@@ -32,7 +32,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#FFFBEB' },
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: '/owl-icon.png' },
+        { rel: 'icon', type: 'image/png', href: '/owl.png' },
         { rel: 'apple-touch-icon', href: '/owl-icon.png' },
       ],
       script: [
