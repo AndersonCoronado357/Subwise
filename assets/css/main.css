@@ -335,16 +335,22 @@ button { font-family: inherit; }
 .login-link:hover { color: color-mix(in srgb, var(--accent) 75%, var(--text)); }
 
 @media (max-width: 820px) {
-  /* Solo la tarjeta (sin eslogan) para que quepa sin scroll, debajo del logo. */
+  /* Solo la tarjeta (sin eslogan), centrada verticalmente con aire arriba y
+     abajo; sin scroll. El padding superior evita que choque con el logo. */
   .login-bg {
-    align-items: flex-start;
-    padding: clamp(60px, 11vh, 88px) 18px 20px;
+    align-items: center;
+    padding: 56px 18px 24px;
   }
   .login-stage, .login-stage.rev {
     flex-direction: column; gap: 20px; max-width: 440px; margin-inline: auto;
   }
   .login-hero { display: none; }
-  .login-card { width: min(100%, 400px); padding: clamp(20px, 5vw, 28px); }
+  .login-card { width: min(100%, 400px); padding: clamp(20px, 5vw, 26px); }
+  /* Compactar la tarjeta para que crear cuenta quepa sin scroll en pantallas bajas. */
+  .login-card > .col:first-child { margin-bottom: 12px !important; }
+  .login-card > .btn { margin-top: 12px !important; }
+  .login-or { margin: 10px 0 2px !important; }
+  .login-foot { margin-top: 12px !important; }
 }
 
 /* ── Utilidades ──────────────────────────────────────────── */
