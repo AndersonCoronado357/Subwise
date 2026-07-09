@@ -84,7 +84,9 @@ async function getSub(userId: number, id: string): Promise<ApiSub | null> {
 }
 
 export async function createSub(userId: number, b: any): Promise<ApiSub> {
-  const id = sid()
+  // Usa el id que envía el cliente (para que su vista de detalle no quede
+  // apuntando a un id distinto); si no viene o no es válido, genera uno.
+  const id = (typeof b.id === 'string' && /^[a-z0-9]{1,32}$/i.test(b.id)) ? b.id : sid()
   await db().query(
     `INSERT INTO subscriptions (id, user_id, name, initials, tint, category, amount, currency, cycle,
        next_charge, method, status, trial_days, trial_ends, started, canceled, notes)
