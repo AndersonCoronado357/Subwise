@@ -389,4 +389,8 @@
   .hero-stats { display: flex; flex-direction: column; gap: 14px; }
   .hero-stats > .col { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
   .hero-stats > .col > .num { font-size: 1.05rem; }
+  /* Resumen (celular): una sección a la vez según el selector. */
+  .resume-toggle { flex-shrink: 0; }
+  .resume-cols.ver-mensual .cat-card { display: none; }
+  .resume-cols.ver-cat .chart-card { display: none; }
 }

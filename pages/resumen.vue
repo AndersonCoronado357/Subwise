@@ -20,6 +20,13 @@ const max = computed(() => Math.max(...serie.value.map(d => d.v), 0))
 const min = computed(() => Math.min(...serie.value.map(d => d.v)))
 const mixed = computed(() => new Set(act.value.map(s => s.currency)).size > 1)
 
+// En celular se muestra una sección a la vez (en PC ambas).
+const vista = ref<'mensual' | 'categoria'>('mensual')
+const vistaOpts = [
+  { value: 'mensual', label: 'Gasto mensual' },
+  { value: 'categoria', label: 'Por categoría' },
+]
+
 // Altura proporcional al máximo real; los meses en cero quedan casi planos.
 function alturaBarra(v: number): string {
   if (!max.value) return '2%'
@@ -65,7 +72,14 @@ function alturaBarra(v: number): string {
         </div>
       </div>
 
-      <div class="resume-cols">
+      <SwSegmented
+        class="resume-toggle only-mobile"
+        :model-value="vista"
+        :options="vistaOpts"
+        @update:model-value="v => vista = v as 'mensual' | 'categoria'"
+      />
+
+      <div :class="['resume-cols', vista === 'categoria' ? 'ver-cat' : 'ver-mensual']">
         <!-- gráfico mensual -->
         <div class="card chart-card">
           <div class="spread" style="margin-bottom: 18px">
