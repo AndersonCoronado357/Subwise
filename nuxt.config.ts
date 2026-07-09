@@ -34,6 +34,7 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/png', href: '/owl.png' },
         { rel: 'apple-touch-icon', href: '/owl-192.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' },
       ],
       script: [
         {
