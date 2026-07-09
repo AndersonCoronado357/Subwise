@@ -381,8 +381,12 @@
     margin: calc(-1 * clamp(18px, 2.6vw, 32px)) calc(-1 * clamp(16px, 3vw, 36px)) 12px;
     padding: clamp(18px, 2.6vw, 32px) clamp(16px, 3vw, 36px) 10px;
   }
-  /* Inicio: hero centrado en celular para no desperdiciar el lado derecho. */
-  .hero-total { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
-  .hero-total > .col { align-items: center; }
-  .hero-stats { justify-content: center; }
+  /* Inicio (celular): monto arriba y stats como lista (etiqueta izq · valor der),
+     sin líneas divisorias y usando todo el ancho. */
+  .hero-total { flex-direction: column; align-items: stretch; text-align: left; gap: 16px; }
+  .hero-total > .col:first-child { align-items: flex-start; }
+  .hero-total .vhair { display: none; }
+  .hero-stats { display: flex; flex-direction: column; gap: 14px; }
+  .hero-stats > .col { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
+  .hero-stats > .col > .num { font-size: 1.05rem; }
 }

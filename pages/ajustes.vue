@@ -110,15 +110,14 @@ const avisoOpts = [
           </div>
           <div class="col grow" style="gap: 13px; min-width: 0">
             <SwField v-model="usuario.name" label="Nombre" />
-            <div class="col" style="gap: 7px">
+            <div class="col" style="gap: 6px">
               <span class="field-label" style="margin-bottom: 0">Correo</span>
               <div class="readonly-box">
                 <SwIcon name="mail" :size="18" style="color: var(--text3); flex-shrink: 0" />
-                <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ usuario.email }}</span>
-                <span class="faint" style="margin-left: auto; font-size: .82rem; flex-shrink: 0; white-space: nowrap">
-                  No se puede cambiar
-                </span>
+                <span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ usuario.email }}</span>
+                <SwIcon name="lock" :size="15" style="color: var(--text3); flex-shrink: 0" />
               </div>
+              <span class="faint" style="font-size: .78rem">No se puede cambiar</span>
             </div>
           </div>
         </div>

@@ -26,7 +26,7 @@ const form = reactive<{
   name: string
   amount: string
   currency: string
-  cycle: 'mensual' | 'anual'
+  cycle: 'mensual' | 'anual' | ''
   nextCharge: Date | null
   category: string
   method: string
@@ -55,10 +55,10 @@ const form = reactive<{
   name: '',
   amount: '',
   currency: props.cur || 'COP',
-  cycle: 'mensual',
-  nextCharge: addDays(TODAY, 30),
-  category: catsRef.value[0]?.id ?? '',
-  method: props.methods[0] ?? '',
+  cycle: '',
+  nextCharge: null,
+  category: '',
+  method: '',
   notes: '',
   tint: TINTS[Math.floor(Math.random() * TINTS.length)] ?? '#888',
 })
@@ -66,6 +66,7 @@ const form = reactive<{
 const valid = computed(() =>
   form.name.trim().length > 0 &&
   Number(form.amount) > 0 &&
+  !!form.cycle &&
   !!form.nextCharge,
 )
 
@@ -134,7 +135,7 @@ const methodOpts = computed(() => props.methods.map(m => ({ value: m, label: m }
           inputmode="numeric"
           placeholder="0"
         />
-        <SwSelect v-model="form.cycle" label="Ciclo" :options="cicloOpts" />
+        <SwSelect v-model="form.cycle" label="Ciclo" :options="cicloOpts" placeholder="Elegir ciclo" />
       </div>
 
       <SwSelect v-model="form.currency" label="Moneda" :options="monedaOpts" />
