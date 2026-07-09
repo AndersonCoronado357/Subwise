@@ -382,8 +382,11 @@
   .subs-rows { gap: 11px; }
   .sub-row, .sub-row.active { background: var(--s1); padding: 14px 15px; }
   .sub-row:hover, .sub-row:active { background: var(--s2); }
-  /* Inicio: solo el encabezado queda fijo; los paneles NO scrollean por dentro,
-     todo el contenido scrollea junto. */
+  /* Inicio: el contenido scrollea como columna normal. Con display:grid las
+     cards se comprimían y se encimaban; en columna flex cada card toma su
+     alto real y todo scrollea junto (solo el encabezado queda fijo). */
+  .dash-grid { display: flex; flex-direction: column; }
+  .dash-grid > .card { flex: 0 0 auto; }
   .dash-panel { min-height: 0; }
   .dash-panel-body { overflow: visible; flex: 0 0 auto; }
   /* Inicio (celular): monto grande arriba y métricas como lista (etiqueta izq ·
