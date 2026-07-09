@@ -230,18 +230,16 @@
 /* Los cards crecen para distribuir el alto disponible.
    Sin huecos en blanco entre la última card y los botones de acción. */
 .detail-body > .card { flex: 1 1 auto; min-height: 0; }
-/* El card del monto: hero centrado (monto grande + próximo cobro debajo),
-   bien distribuido sin dejar medio lado vacío. */
+/* PC (como el original): monto a la izquierda, píldora de próximo cobro a la derecha. */
 .detail-amount {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; gap: 16px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
 }
-.detail-amount > .col { align-items: center; }
 /* Acciones: dos botones que ocupan el 100% del ancho disponible. */
 .detail-actions > .btn { flex: 1; }
 .detail-top { display: flex; align-items: center; gap: 14px; }
 .back-btn { display: none; }
-.next-pill { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.next-pill { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; }
 .info-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
 .info-row span { white-space: nowrap; }
 .detail-actions {
@@ -339,6 +337,10 @@
   /* Perfil: foto centrada arriba, nombre y correo apilados debajo.
      nowrap: en columna, evita que los campos se ensanchen más que la tarjeta. */
   .profile-row { flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: 18px; }
+  /* Card del monto centrado solo en celular. */
+  .detail-amount { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .detail-amount > .col { align-items: center; }
+  .next-pill { align-items: center; text-align: center; }
 }
 
 /* ── Categorías / Métodos de pago (módulos) ──────────────── */
@@ -368,6 +370,9 @@
      bajas) y los botones de acción quedan fijos abajo. */
   .detail-body { overflow-y: auto; }
   .detail-body > .card { flex: 0 0 auto; }
+  /* En celular la lista no tiene detalle al lado, así que ningún item va
+     preseleccionado: todos se ven igual. */
+  .sub-row.active { background: transparent; }
   /* Inicio: el encabezado queda fijo arriba mientras se hace scroll. El margen
      negativo + padding hace que su fondo cubra hasta el borde (sin franja
      de contenido asomando por encima). */
