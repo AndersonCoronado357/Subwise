@@ -40,8 +40,7 @@ function nuevaSub() { router.push('/suscripciones?mode=form') }
           <span class="muted" style="font-size: .9rem">Gastas al mes</span>
           <span class="sw-title num hero-num">{{ formatMoney(t.monthly, moneda) }}</span>
         </div>
-        <hr class="hair" style="margin: 20px 0" />
-        <div class="row" style="gap: 28px; flex-wrap: wrap">
+        <div class="row hero-stats">
           <div class="col" style="gap: 3px">
             <span class="faint" style="font-size: .8rem">Al año</span>
             <span class="num" style="font-weight: 600; font-size: 1.15rem">{{ formatMoney(t.yearly, moneda) }}</span>

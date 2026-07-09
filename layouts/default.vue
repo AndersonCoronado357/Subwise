@@ -27,10 +27,12 @@ function activo(navId: string): boolean {
   if (navId === 'metodos')    return path.startsWith('/metodos')
   return false
 }
-const ajustesActivo = computed(() => ruta.path.startsWith('/ajustes'))
-const subsActivo    = computed(() => ruta.path.startsWith('/suscripciones'))
-const inicioActivo  = computed(() => ruta.path === '/')
-const resumenActivo = computed(() => ruta.path.startsWith('/resumen'))
+const ajustesActivo    = computed(() => ruta.path.startsWith('/ajustes'))
+const subsActivo       = computed(() => ruta.path.startsWith('/suscripciones'))
+const inicioActivo     = computed(() => ruta.path === '/')
+const resumenActivo    = computed(() => ruta.path.startsWith('/resumen'))
+const categoriasActivo = computed(() => ruta.path.startsWith('/categorias'))
+const metodosActivo    = computed(() => ruta.path.startsWith('/metodos'))
 
 function nuevaSuscripcion() {
   router.push('/suscripciones?mode=form')
@@ -86,19 +88,25 @@ function nuevaSuscripcion() {
       <!-- Tabbar (visible <900px por CSS) -->
       <nav class="tabbar" aria-label="Navegación principal">
         <NuxtLink to="/" :class="['tab-btn', inicioActivo ? 'on' : '']">
-          <SwIcon name="home" :size="22" /><span>Inicio</span>
+          <SwIcon name="home" :size="20" /><span>Inicio</span>
         </NuxtLink>
         <NuxtLink to="/suscripciones" :class="['tab-btn', subsActivo ? 'on' : '']">
-          <SwIcon name="list" :size="22" /><span>Servicios</span>
+          <SwIcon name="list" :size="20" /><span>Servicios</span>
+        </NuxtLink>
+        <NuxtLink to="/resumen" :class="['tab-btn', resumenActivo ? 'on' : '']">
+          <SwIcon name="chart" :size="20" /><span>Resumen</span>
         </NuxtLink>
         <button type="button" class="fab" aria-label="Añadir" @click="nuevaSuscripcion">
           <SwIcon name="plus" :size="24" />
         </button>
-        <NuxtLink to="/resumen" :class="['tab-btn', resumenActivo ? 'on' : '']">
-          <SwIcon name="chart" :size="22" /><span>Resumen</span>
+        <NuxtLink to="/categorias" :class="['tab-btn', categoriasActivo ? 'on' : '']">
+          <SwIcon name="tag" :size="20" /><span>Categorías</span>
+        </NuxtLink>
+        <NuxtLink to="/metodos" :class="['tab-btn', metodosActivo ? 'on' : '']">
+          <SwIcon name="card" :size="20" /><span>Métodos</span>
         </NuxtLink>
         <NuxtLink to="/ajustes" :class="['tab-btn', ajustesActivo ? 'on' : '']">
-          <SwIcon name="settings" :size="22" /><span>Ajustes</span>
+          <SwIcon name="settings" :size="20" /><span>Ajustes</span>
         </NuxtLink>
       </nav>
     </div>

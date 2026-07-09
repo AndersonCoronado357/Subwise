@@ -113,9 +113,9 @@ const avisoOpts = [
             <div class="col" style="gap: 7px">
               <span class="field-label" style="margin-bottom: 0">Correo</span>
               <div class="readonly-box">
-                <SwIcon name="mail" :size="18" style="color: var(--text3)" />
-                <span>{{ usuario.email }}</span>
-                <span class="faint" style="margin-left: auto; font-size: .82rem">
+                <SwIcon name="mail" :size="18" style="color: var(--text3); flex-shrink: 0" />
+                <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ usuario.email }}</span>
+                <span class="faint" style="margin-left: auto; font-size: .82rem; flex-shrink: 0; white-space: nowrap">
                   No se puede cambiar
                 </span>
               </div>
@@ -209,33 +209,6 @@ const avisoOpts = [
           </div>
         </div>
       </div>
-
-      <!-- Categorías y métodos: solo en celular (en PC están en el sidebar) -->
-      <span class="panel-title only-mobile" style="display: block; margin: 6px 2px 0">Configuración</span>
-      <NuxtLink to="/categorias" class="card settings-card only-mobile" style="text-decoration: none; color: inherit; cursor: pointer">
-        <div class="row" style="gap: 14px; align-items: center">
-          <span class="trial-ic" style="background: var(--s2); color: var(--text2)">
-            <SwIcon name="tag" :size="20" />
-          </span>
-          <div class="col grow" style="gap: 3px; min-width: 0">
-            <span style="font-weight: 600">Categorías</span>
-            <span class="faint" style="font-size: .86rem">Organiza tus suscripciones</span>
-          </div>
-          <SwIcon name="chevronRight" :size="18" style="color: var(--text3)" />
-        </div>
-      </NuxtLink>
-      <NuxtLink to="/metodos" class="card settings-card only-mobile" style="text-decoration: none; color: inherit; cursor: pointer">
-        <div class="row" style="gap: 14px; align-items: center">
-          <span class="trial-ic" style="background: var(--s2); color: var(--text2)">
-            <SwIcon name="card" :size="20" />
-          </span>
-          <div class="col grow" style="gap: 3px; min-width: 0">
-            <span style="font-weight: 600">Métodos de pago</span>
-            <span class="faint" style="font-size: .86rem">Con qué pagas cada servicio</span>
-          </div>
-          <SwIcon name="chevronRight" :size="18" style="color: var(--text3)" />
-        </div>
-      </NuxtLink>
 
       <!-- Cerrar sesión: solo el botón, sin card -->
       <button class="btn btn-danger btn-block" style="width: 100%; padding: 15px 20px" @click="cerrarSesion">

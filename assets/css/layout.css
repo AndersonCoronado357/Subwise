@@ -76,17 +76,18 @@
   flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom); padding-inline: 6px;
 }
 .tab-btn {
-  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 3px;
   border: 0; cursor: pointer; background: transparent; color: var(--text3);
-  font-family: var(--font-body); font-size: .68rem; font-weight: 600;
-  padding: 8px 0; transition: color .16s;
+  font-family: var(--font-body); font-size: .6rem; font-weight: 600;
+  padding: 8px 2px; transition: color .16s;
 }
+.tab-btn span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tab-btn.on { color: var(--accent); }
 .fab {
   flex-shrink: 0; width: 54px; height: 54px; border-radius: 50%;
   background: var(--accent); color: var(--accent-ink); border: 0;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; margin: 0 8px;
+  cursor: pointer; margin: 0 4px;
   transition: transform .14s var(--ease), background .18s;
 }
 .fab:hover { background: color-mix(in srgb, var(--accent) 88%, #fff); }
@@ -134,6 +135,10 @@
   .dash-grid.has-trial { grid-template-rows: auto auto 1fr; }
   .dash-grid > .hero-total, .dash-grid > .trial-card { grid-column: 1 / -1; }
 }
+/* Hero total: monto a la izquierda, stats a la derecha, llenando el ancho. */
+.hero-total { display: flex; align-items: center; justify-content: space-between; gap: clamp(18px, 4vw, 48px); flex-wrap: wrap; }
+.hero-stats { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px); flex-wrap: wrap; }
+
 /* dash-panel ocupa su celda, contenido scrollea adentro. */
 .dash-panel { display: flex; flex-direction: column; min-height: 0; }
 .dash-panel > .spread { flex-shrink: 0; }
@@ -166,10 +171,9 @@
 
 /* ── Suscripciones master/detail ─────────────────────────── */
 .subs-split { display: grid; grid-template-columns: minmax(330px, 33%) 1fr; height: 100%; min-height: 0; }
-/* Panel de la lista: tono un poco más elevado y borde para distinguirlo del fondo. */
+/* Panel de la lista: superficie claramente más elevada que el fondo, sin línea. */
 .subs-pane-l {
-  background: color-mix(in srgb, var(--s2) 40%, var(--s1));
-  border-right: 1px solid var(--hair2);
+  background: var(--s2);
   display: flex; flex-direction: column; min-height: 0;
 }
 .subs-pane-r { background: var(--bg); min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
@@ -198,8 +202,8 @@
   padding: clamp(10px, 1.2vw, 14px); border-radius: 14px;
   color: var(--text); transition: background .14s;
 }
-.sub-row:hover { background: var(--s2); }
-.sub-row.active { background: var(--s2); }
+.sub-row:hover { background: var(--s3); }
+.sub-row.active { background: var(--s3); }
 .sub-row > .col:first-of-type { overflow: hidden; }
 .sub-row > .col:first-of-type > .row { width: 100%; max-width: 100%; min-width: 0; }
 .sub-row > .col:first-of-type > .row > span:first-child {
@@ -214,11 +218,9 @@
 /* Sin scroll interno — el contenido cabe y LLENA el viewport. */
 .detail {
   height: 100%; padding: clamp(18px, 2.2vw, 30px);
-  display: flex; flex-direction: column; align-items: center; gap: clamp(12px, 1.4vw, 16px);
+  display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 16px);
   background: var(--bg); overflow: hidden;
 }
-/* Contenido acotado y centrado: en paneles anchos no queda medio lado vacío. */
-.detail > * { width: 100%; max-width: 880px; }
 .detail > .detail-top { flex-shrink: 0; }
 .detail-body {
   flex: 1; min-height: 0;
@@ -304,7 +306,7 @@
   gap: 16px; padding: 15px 0;
 }
 .readonly-box {
-  display: flex; align-items: center; gap: 11px;
+  display: flex; align-items: center; gap: 11px; min-width: 0;
   background: var(--s2); border-radius: var(--radius-sm);
   padding: 13px 15px; color: var(--text2); font-size: .92rem;
 }
