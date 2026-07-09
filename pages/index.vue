@@ -52,7 +52,7 @@ function nuevaSub() { router.push('/suscripciones?mode=form') }
           </div>
           <div class="vhair" style="height: 34px" />
           <div class="col" style="gap: 3px">
-            <span class="faint" style="font-size: .8rem">Cobro más cercano</span>
+            <span class="faint" style="font-size: .8rem">Próximo cobro</span>
             <span class="num" style="font-weight: 600; font-size: 1.15rem">{{ next[0] ? relativeDay(next[0].nextCharge) : '—' }}</span>
           </div>
         </div>

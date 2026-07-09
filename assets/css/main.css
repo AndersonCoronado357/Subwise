@@ -48,8 +48,8 @@ button { font-family: inherit; }
   color-scheme: dark;
   --bg:    hsl(45 10% 4.5%);
   --s1:    hsl(45 9% 11%);
-  --s2:    hsl(45 8% 14.5%);
-  --s3:    hsl(45 8% 19%);
+  --s2:    hsl(45 8% 17%);
+  --s3:    hsl(45 8% 22%);
   --s4:    hsl(44 8% 23%);
   --text:  hsl(45 18% 94%);
   --text2: hsl(44 10% 66%);
@@ -66,8 +66,8 @@ button { font-family: inherit; }
   color-scheme: light;
   --bg:    hsl(46 48% 92.5%);
   --s1:    hsl(48 60% 99%);
-  --s2:    hsl(46 32% 89%);
-  --s3:    hsl(45 28% 84%);
+  --s2:    hsl(46 30% 86%);
+  --s3:    hsl(45 26% 81%);
   --s4:    hsl(44 28% 81%);
   --text:  hsl(43 38% 9%);
   --text2: hsl(43 12% 38%);

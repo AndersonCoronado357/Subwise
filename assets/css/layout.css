@@ -116,16 +116,22 @@
 }
 
 /* ── Dashboard ───────────────────────────────────────────── */
+/* Columna: el encabezado ("Tu mes") queda fijo arriba y el contenido scrollea. */
+.dash-screen { display: flex; flex-direction: column; overflow: hidden; }
+.dash-screen > .page-head { flex-shrink: 0; }
+.dash-screen > .dash-grid { flex: 1; min-height: 0; }
 .dash-grid {
   display: grid;
   gap: clamp(12px, 1.4vw, 18px);
   grid-template-columns: 1fr;
 }
-/* En desktop la pantalla llena el viewport, los paneles row-3 ocupan
-   el alto restante con scroll interno cuando hay muchos items. */
+/* Celular: el contenido (grid) scrollea entero; los paneles no scrollean aparte. */
+@media (max-width: 899px) {
+  .dash-screen > .dash-grid { overflow-y: auto; }
+  .dash-panel { min-height: 0; }
+  .dash-panel-body { overflow: visible; flex: 0 0 auto; }
+}
 @media (min-width: 900px) {
-  .dash-screen { display: flex; flex-direction: column; overflow: hidden; }
-  .dash-screen > .dash-grid { flex: 1; min-height: 0; }
   .dash-grid {
     grid-template-columns: 1.25fr 1fr;
     /* Sin tarjeta de prueba: hero + fila de paneles que llena el alto. */
@@ -372,19 +378,20 @@
      bajas) y los botones de acción quedan fijos abajo. */
   .detail-body { overflow-y: auto; }
   .detail-body > .card { flex: 0 0 auto; }
-  /* En celular cada suscripción se ve como una tarjeta (distinta del fondo)
-     y ninguna va preseleccionada. */
-  .sub-rows { gap: 8px; }
-  .sub-row, .sub-row.active { background: var(--s1); }
+  /* En celular cada suscripción se ve como una tarjeta (distinta del fondo),
+     con aire entre ellas, y ninguna va preseleccionada. */
+  .subs-rows { gap: 11px; }
+  .sub-row, .sub-row.active { background: var(--s1); padding: 14px 15px; }
   .sub-row:hover, .sub-row:active { background: var(--s2); }
-  /* Inicio (celular): monto arriba y stats como lista (etiqueta izq · valor der),
-     sin líneas divisorias y usando todo el ancho. */
-  .hero-total { flex-direction: column; align-items: stretch; text-align: left; gap: 16px; }
+  /* Inicio (celular): monto grande arriba, 3 métricas en columnas limpias
+     abajo, sin líneas divisorias. */
+  .hero-total { flex-direction: column; align-items: stretch; text-align: left; gap: 20px; }
   .hero-total > .col:first-child { align-items: flex-start; }
   .hero-total .vhair { display: none; }
-  .hero-stats { display: flex; flex-direction: column; gap: 14px; }
-  .hero-stats > .col { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
-  .hero-stats > .col > .num { font-size: 1.05rem; }
+  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .hero-stats > .col { flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+  .hero-stats > .col > .faint { font-size: .72rem; }
+  .hero-stats > .col > .num { font-size: 1.02rem; }
   /* Resumen (celular): una sección a la vez según el selector. */
   .resume-toggle { flex-shrink: 0; }
   .resume-cols.ver-mensual .cat-card { display: none; }
