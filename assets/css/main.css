@@ -9,7 +9,10 @@
    =========================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; height: 100%; }
+/* App de una sola pantalla: el documento nunca scrollea (el scroll vive en
+   contenedores internos). Evita el scroll fantasma en la PWA standalone, donde
+   100dvh puede exceder el alto real del viewport. */
+html, body { margin: 0; height: 100%; overflow: hidden; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--font-body, 'Inter', sans-serif);
@@ -340,9 +343,12 @@ button { font-family: inherit; }
   .login-bg {
     align-items: center;
     padding: 56px 18px 24px;
+    /* Si el formulario cabe se ve centrado y sin scroll; si es más alto que la
+       pantalla, scrollea por dentro (margin:auto deja el tope alcanzable). */
+    overflow-y: auto;
   }
   .login-stage, .login-stage.rev {
-    flex-direction: column; gap: 20px; max-width: 440px; margin-inline: auto;
+    flex-direction: column; gap: 20px; max-width: 440px; margin: auto;
   }
   .login-hero { display: none; }
   .login-card { width: min(100%, 400px); padding: clamp(20px, 5vw, 26px); }
