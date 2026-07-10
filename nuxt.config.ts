@@ -33,7 +33,8 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/owl.png' },
-        { rel: 'apple-touch-icon', href: '/owl-192.png' },
+        // Opaco (fondo crema): iOS pinta la transparencia sobre negro y saldría un recuadro.
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch.png' },
         { rel: 'manifest', href: '/manifest.webmanifest' },
       ],
       script: [
@@ -80,7 +81,9 @@ export default defineNuxtConfig({
       icons: [
         { src: '/owl-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
         { src: '/owl-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-        { src: '/owl-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        // Maskable con fondo crema lleno: Android lo enmascara y una transparencia
+        // se vería como recuadro negro en el splash / launcher.
+        { src: '/owl-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
       ],
     },
     // Permite registrar y probar el SW en `nuxt dev`.
