@@ -213,9 +213,11 @@ async function enviar() {
   width: 100%;
   padding: 12px 16px;
   border-radius: 14px;
-  border: 1px solid var(--line, #e7e2d6);
+  border: 1px solid #dadce0;
   background: #fff;
-  color: var(--text, #2b2b2b);
+  /* El botón es blanco fijo en ambos temas, así que el texto va oscuro fijo:
+     con var(--text) en modo oscuro quedaba casi blanco e ilegible. */
+  color: #3c4043;
   font-weight: 600;
   font-size: 0.95rem;
   text-decoration: none;
