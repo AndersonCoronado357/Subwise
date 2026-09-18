@@ -34,3 +34,6 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 launch.json
+
+# Markdown drafts — keep the repo focused on code
+*.md
